@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.0"
+    xmlns:scallop="http://scallop/xmlns/sca/1.0"
+    targetNamespace="http://AcademyDemaciaComponent" xmlns:sample="http://AcademyDemaciaComponent" name="AcademyDemaciaComponent">
+
+
+  <component name="AcademyDemaciaComponent">
+    <implementation.spring location="META-INF/applicationContext-server.xml" />
+  </component>
+  
+
+
+	  <service name="videoService" promote="AcademyDemaciaComponent/videoService">
+    <interface.java interface="com.ptteng.demacia.service.VideoService"/>
+    <scallop:binding.rmi host="localhost" port="20244" serviceName="VideoRMIService"/>
+  </service>
+
+   <service name="teacherService" promote="AcademyDemaciaComponent/teacherService">
+    <interface.java interface="com.ptteng.demacia.service.TeacherService"/>
+    <scallop:binding.rmi host="localhost" port="20244" serviceName="TeacherRMIService"/>
+  </service>
+
+
+
+
+</composite>
+

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sca="http://www.springframework.org/schema/sca"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/sca http://www.springframework.org/schema/sca/spring-sca.xsd">
+
+	<context:component-scan base-package="com.ptteng.demacia" />
+
+	
+		<!--<sca:service name="adminService"-->
+		<!--type="com.ptteng.demacia.service.AdminService" target="adminService" />-->
+		
+	
+		<sca:service name="userService"
+		type="com.ptteng.demacia.service.UserService" target="userService" />
+		
+	
+		<sca:service name="signService"
+		type="com.ptteng.demacia.service.SignService" target="signService" />
+		
+	
+		<!--<sca:service name="articleService"-->
+		<!--type="com.ptteng.demacia.service.ArticleService" target="articleService" />-->
+		
+	
+		<!--<sca:service name="videoService"-->
+		<!--type="com.ptteng.demacia.service.VideoService" target="videoService" />-->
+		<!---->
+	
+		<!--<sca:service name="teacherService"-->
+		<!--type="com.ptteng.demacia.service.TeacherService" target="teacherService" />-->
+		<!---->
+	<!---->
+		<sca:service name="relationService"
+		type="com.ptteng.demacia.service.RelationService" target="relationService" />
+		
+	
+		
+	
+	 
+	
+	
+
+
+	
+
+
+
+	
+		<!---->
+	<!--<bean id="adminService"-->
+		<!--class="com.ptteng.demacia.service.impl.AdminServiceImpl" parent="baseDaoService">-->
+	<!--</bean>-->
+		
+	<bean id="userService"
+		class="com.ptteng.demacia.service.impl.UserServiceImpl" parent="baseDaoService">
+
+	</bean>
+		
+	<bean id="signService"
+		class="com.ptteng.demacia.service.impl.SignServiceImpl" parent="baseDaoService">
+
+	</bean>
+		
+	<!--<bean id="articleService"-->
+		<!--class="com.ptteng.demacia.service.impl.ArticleServiceImpl" parent="baseDaoService">-->
+
+	<!--</bean>-->
+
+	<!--<bean id="videoService"-->
+		<!--class="com.ptteng.demacia.service.impl.VideoServiceImpl" parent="baseDaoService">-->
+
+	<!--</bean>-->
+
+	<!--<bean id="teacherService"-->
+		<!--class="com.ptteng.demacia.service.impl.TeacherServiceImpl" parent="baseDaoService">-->
+
+	<!--</bean>-->
+		
+	<bean id="relationService"
+		class="com.ptteng.demacia.service.impl.RelationServiceImpl" parent="baseDaoService">
+
+	</bean>
+		
+
+<bean id="dao" class="com.gemantic.dal.dao.impl.CompositeDaoImpl" />
+
+	<bean id="baseDaoService"
+		class="com.ptteng.common.dao.BaseDaoServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+
+
+
+
+
+
+	<!-- performance -->
+	<aop:aspectj-autoproxy />
+	<bean id="aroundLoggingTime" class="com.gemantic.common.stat.aop.time.AroundTimeConsume" />
+	<aop:config>
+		<aop:aspect ref="aroundLoggingTime">
+			<aop:pointcut id="publicServiceMethod"
+				expression="execution(* com.gemantic..service.*.*(..)) " />
+			<aop:around method="around" pointcut-ref="publicServiceMethod" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>
+
